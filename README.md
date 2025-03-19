@@ -1,6 +1,7 @@
 # Flask Web Scraper
 
 ## Project Overview
+The Flask Web Scraper is an automated system designed to scrape quotes from the website http://quotes.toscrape.com and store them in a MySQL database. It uses Flask for the web interface, allowing users to view, manage, and export the scraped data. The scraper runs on a schedule and collects new quotes daily, with functionality to export the data in CSV or JSON format.
 
     The Flask Web Scraper is an automated system designed to scrape quotes from the website http://quotes.toscrape.com and store them in a MySQL database. It uses Flask for the web interface, allowing users to view, manage, and export the scraped data. The scraper runs on a schedule and collects new quotes daily, with functionality to export the data in CSV or JSON format.
 
