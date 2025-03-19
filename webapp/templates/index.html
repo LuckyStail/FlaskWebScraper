@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Scraped Quotes</title>
+</head>
+<body>
+    <h1>Scraped Quotes</h1>
+
+    <form method="GET">
+        <input type="text" name="search" placeholder="Search quotes..." value="{{ search_query }}">
+        <button type="submit">Search</button>
+    </form>
+
+    <ul>
+        {% for quote in quotes %}
+            <li>"{{ quote[0] }}" - <strong>{{ quote[1] }}</strong></li>
+        {% endfor %}
+    </ul>
+
+    <div>
+        {% if page > 1 %}
+            <a href="{{ url_for('index', page=page-1, search=search_query) }}">Previous</a>
+        {% endif %}
+
+        <span> Page {{ page }} of {{ total_pages }} </span>
+
+        {% if page < total_pages %}
+            <a href="{{ url_for('index', page=page+1, search=search_query) }}">Next</a>
+        {% endif %}
+    </div>
+</body>
+</html>
