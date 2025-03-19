@@ -10,3 +10,8 @@ config.py
 
 # Ignore .env file if you are using one for environment variables
 .env
+
+
+*.db
+*.sqlite3
+.env
