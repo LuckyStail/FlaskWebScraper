@@ -7,12 +7,12 @@
 
 ## Key Features:
 
-- **Automated Scraping: Scrapes quotes from multiple pages of the website.
-- **Data Storage: Stores scraped quotes in a MySQL database, preventing duplicates.
-- **Web Interface: Built with Flask, allowing users to view, search, and filter the quotes.
-- **Data Export: Options to export the data as CSV or JSON files.
-- **Scheduled Scraping: Automatically runs the scraper every day at midnight.
-- **Pagination Support: Scrapes additional pages beyond the first to collect more data.
+- Automated Scraping: Scrapes quotes from multiple pages of the website.
+- Data Storage: Stores scraped quotes in a MySQL database, preventing duplicates.
+- Web Interface: Built with Flask, allowing users to view, search, and filter the quotes.
+- Data Export: Options to export the data as CSV or JSON files.
+- Scheduled Scraping: Automatically runs the scraper every day at midnight.
+- Pagination Support: Scrapes additional pages beyond the first to collect more data.
 
 
 ### 1. **Automated Scraping** Uses Python’s schedule module to scrape new data daily.
@@ -61,7 +61,7 @@
     Features: Simple web framework to build interactive and user-friendly interfaces.
     Integration: Used to serve the Flask web app, displaying and managing scraped data.
 
-4. **chedule - Task Scheduling**
+4. **Schedule - Task Scheduling**
 
    Purpose: Automates the scraping process, running the scraper at scheduled intervals.
     Features: Schedules tasks to run at a specific time, such as every day at midnight.
@@ -70,7 +70,7 @@
    
 - **Dependencies**:
   - Install Python dependencies using pip.
-  - Install necessary tools like Nmap, SQLMap, XSStrike, Metasploit.
+  
 
 
 1. **Clone the repository**:
@@ -149,30 +149,20 @@ The scraper will automatically check every minute and run the scraping task when
 
 ## File Structure
 
-FlaskWebScraper/
-│
-├── app.py                     # Flask web application (dashboard)
-├── scraper.py                 # Web scraper script
-├── requirements.txt           # Python dependencies
-├── templates/
-│   ├── index.html             # Home page for displaying quotes
-│   └── export.html            # Page to export data
-├── static/                    # Static files (CSS, JavaScript)
-│   └── style.css              # Custom styling for the web interface
-├── venv/                      # Virtual environment
-├── README.md                  # Project documentation
-└── .gitignore                 # Git ignore file
+    FlaskWebScraper/
+    │
+    ├── app.py                     # Flask web application (dashboard)
+    ├── scraper.py                 # Web scraper script
+    ├── requirements.txt           # Python dependencies
+    ├── templates/
+    │   ├── index.html             # Home page for displaying quotes
+    │   └── export.html            # Page to export data
+    ├── static/                    # Static files (CSS, JavaScript)
+    │   └── style.css              # Custom styling for the web interface
+    ├── venv/                      # Virtual environment
+    ├── README.md                  # Project documentation
+    └── .gitignore                 # Git ignore file
 
-
-## Reporting
-
-    ZeroTrace generates detailed reports in multiple formats:
-
-    JSON: Machine-readable format for further analysis.
-    HTML: Human-readable format for viewing in a browser.
-    PDF: Portable format suitable for sharing.
-
-    Reports are automatically generated and saved in the scan_results/ directory after each scan. You can customize the report generation by modifying the report_generator.py script
 
 
 ## Conclusion
