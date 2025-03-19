@@ -1,143 +1,143 @@
-# FlaskWebScraperFlask Web Scraper Project Documentation
-Project Overview
-This project is a web scraper built using Flask, BeautifulSoup, and MySQL to scrape quotes from a website (http://quotes.toscrape.com), store them in a MySQL database, and display the scraped quotes on a web dashboard. The scraper is automated to run daily using the schedule module.
+Flask Web Scraper Project
+Overview
+The Flask Web Scraper project is an automated web scraping system that scrapes quotes from the website http://quotes.toscrape.com, stores the data in a MySQL database, and provides a web interface using Flask to display and manage the scraped quotes. The system runs on a schedule, scraping new data daily.
 
-Technologies Used
-Flask: A lightweight web framework for Python to build the web dashboard.
-BeautifulSoup: A Python library for parsing HTML and extracting data.
-MySQL: A relational database to store the scraped quotes.
-schedule: A Python library for scheduling tasks like daily scraping.
-pymysql: A MySQL client to interact with the MySQL database.
-requests: A library to send HTTP requests and fetch web pages.
-Project Features
-Scrape Quotes: Scrapes quotes from http://quotes.toscrape.com from multiple pages.
-Database Integration: Saves scraped data into a MySQL database (scraped_data).
-Web Dashboard: Displays the quotes on a Flask-based web dashboard with search and filter functionality.
-Scheduled Scraping: Automatically scrapes quotes daily at midnight using the schedule library.
-Data Export: Option to export the scraped data in CSV or JSON format.
-Data Visualization: Visualization of data trends such as most common authors using Matplotlib.
-File Structure Diagram
-graphql
-Copy
-Edit
-FlaskWebScraper/
-│
-├── app.py               # Main Flask app to run the server and display the dashboard
-├── scraper/             # Folder for scraper logic and database functions
-│   ├── scraper.py       # Contains functions to scrape data and save to DB
-│   └── __init__.py      # Init file for scraper module
-├── templates/           # Folder for HTML files used by Flask
-│   ├── index.html       # Main dashboard HTML file for displaying quotes
-│   ├── add_quote.html   # Template for adding or viewing individual quotes (optional)
-│   └── layout.html      # Base layout template (used across pages)
-├── static/              # Folder for static files like CSS, JS, and images
-│   ├── styles.css       # CSS file for styling the dashboard
-│   └── script.js        # Optional JavaScript for interactivity (e.g., filtering)
-├── requirements.txt     # Lists all the dependencies for the project
-├── .gitignore           # Git ignore file to prevent sensitive and unnecessary files from being committed
-└── README.md            # Documentation of the project (this file)
-Detailed Explanation of Files
-1. app.py (Flask Application)
-This file contains the main Flask application code, responsible for setting up routes, rendering HTML templates, and handling user interactions (e.g., searching/filtering quotes).
+The project includes the following features:
 
-Routes:
+Scraping quotes from multiple pages.
+Storing quotes in a MySQL database.
+Web interface to view and manage the quotes.
+Automation of the scraping process using Python’s schedule module.
+Options to export the data as CSV or JSON files.
+Features
+Automated Scraping: The scraper runs automatically every day at midnight to fetch new quotes and store them in the database.
+Web Interface: Built with Flask, the dashboard displays scraped quotes and allows for searching and filtering.
+Data Export: Export the scraped quotes in CSV or JSON format for further use.
+Database Integration: Uses MySQL to store the quotes with features to prevent duplicates.
+Data Visualization (Future): Plans to visualize data trends (e.g., most common authors) using Matplotlib or Pandas.
+Installation
+Prerequisites
+Before you begin, make sure you have the following installed:
 
-/ - The homepage that displays the scraped quotes.
-/add_quote - Optionally, you can add new quotes manually via the dashboard.
-/search - Allows the user to search/filter the quotes.
-Functions:
-
-fetch_quotes_from_db() - Fetches quotes from the MySQL database to display on the web dashboard.
-2. scraper/scraper.py (Scraper Logic)
-This file contains the core logic for scraping the quotes from the website and saving them into the MySQL database.
-
-Functions:
-scrape_quotes() - Scrapes the quotes from the target website.
-save_quotes_to_db() - Saves the scraped quotes to the MySQL database.
-scrape_and_save() - Integrates the two functions above to scrape and save the data.
-Automated Scraping - Uses schedule to run scrape_and_save() automatically every day at midnight.
-3. templates/ (HTML Templates)
-index.html: The main HTML file that displays the quotes on the web page in a user-friendly interface.
-
-Includes search and filter functionality.
-Renders quotes dynamically using Flask’s template engine.
-layout.html: The base layout for the HTML pages, which includes headers, footers, and navigation menus used across all templates.
-
-4. static/ (Static Files)
-styles.css: Contains the CSS to style the dashboard and make the interface clean and user-friendly.
-
-script.js: If any JavaScript functionality is added, it can go here, for instance, for dynamic filtering or pagination of quotes.
-
-5. requirements.txt
-Contains the list of Python packages required for the project to run, such as:
-
-plaintext
-Copy
-Edit
-Flask==2.1.2
-requests==2.26.0
-beautifulsoup4==4.10.0
-pymysql==1.0.2
-schedule==1.1.0
-6. .gitignore
-This file contains a list of files and directories that should be ignored by Git (e.g., virtual environments, sensitive information). Typical contents include:
-
-plaintext
-Copy
-Edit
-__pycache__/
-*.pyc
-*.pyo
-venv/
-*.db
-*.sqlite3
-.env
-7. README.md
-This file provides the necessary information for other developers or users to understand the project, how to set it up, and how to use it.
-
-Running the Project
-Clone the Repository: If you're cloning from GitHub:
+Python 3.7+
+MySQL server
+pip (for installing Python packages)
+Setup
+Clone the repository:
 
 bash
 Copy
 Edit
 git clone https://github.com/yourusername/FlaskWebScraper.git
 cd FlaskWebScraper
-Set up the Virtual Environment:
-
-Install Python dependencies listed in requirements.txt:
+Create a virtual environment:
 
 bash
 Copy
 Edit
-python -m venv venv
-source venv/bin/activate   # On Windows, use venv\Scripts\activate
+python3 -m venv venv
+source venv/bin/activate  # For Linux/Mac
+venv\Scripts\activate  # For Windows
+Install required Python packages:
+
+bash
+Copy
+Edit
 pip install -r requirements.txt
-Set Up MySQL Database:
+Set up the MySQL Database:
 
-Ensure MySQL is installed and running.
+Log into MySQL:
 
-Create the database:
+bash
+Copy
+Edit
+mysql -u root -p
+Create a database:
 
 sql
 Copy
 Edit
 CREATE DATABASE scraped_data;
-Run the Flask Application:
+Create the necessary table if not already created:
 
-Start the Flask app:
+sql
+Copy
+Edit
+CREATE TABLE IF NOT EXISTS quotes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    text TEXT UNIQUE,
+    author TEXT
+);
+Configure MySQL connection: Update the scraper.py file with your MySQL username, password, and host details.
+
+python
+Copy
+Edit
+conn = pymysql.connect(
+    host="localhost",
+    user="root",  # your MySQL username
+    password="your_password",  # your MySQL password
+    database="scraped_data"
+)
+Running the Project
+Run the scraper manually: To run the scraper script, simply execute the following command:
+
+bash
+Copy
+Edit
+python scraper.py
+This will scrape the quotes from 5 pages and save them to the database.
+
+Automated Scraping: The scraper is scheduled to run daily at midnight using Python’s schedule module. To keep the scraper running, execute the following command:
+
+bash
+Copy
+Edit
+python scraper.py
+The scraper will automatically check every minute and run the scraping task when it’s time.
+
+Run the Flask Web Application: To start the Flask web application, run:
 
 bash
 Copy
 Edit
 python app.py
-Visit http://localhost:5000 in your web browser to access the web dashboard.
+This will start the web server and you can access the dashboard at http://localhost:5000.
 
-Automate Scraping:
+Exporting Data
+CSV Export: You can export the scraped data to a CSV file using the export_csv() function in the Flask application.
 
-To automatically scrape data daily, ensure the schedule module is running by keeping the script running. You can also run the script in the background or use cron jobs for automation.
+JSON Export: Similarly, you can export the scraped data to a JSON file using the export_json() function.
+
 Future Enhancements
-Data Export: Implement functionality to export scraped quotes to CSV or JSON files.
-Data Visualization: Implement data visualization (e.g., common authors, themes) using Matplotlib or Pandas.
-User Authentication: Add user login and authentication to protect certain parts of the dashboard.
-Error Handling: Enhance error handling to manage failed scraping attempts or database connectivity issues.
+Data Visualization: We plan to integrate Matplotlib or Pandas to visualize the scraped data, such as plotting the most common authors and themes.
+
+Advanced Searching and Filtering: Future versions will have advanced searching and filtering functionality to better explore the scraped data.
+
+User Authentication: To enhance security and allow users to manage their data, user authentication and authorization will be implemented.
+
+Project Structure
+makefile
+Copy
+Edit
+FlaskWebScraper/
+│
+├── app.py                     # Flask web application (dashboard)
+├── scraper.py                 # Web scraper script
+├── requirements.txt           # Python package dependencies
+├── templates/
+│   ├── index.html             # Home page for displaying quotes
+│   └── export.html            # Page to export data
+├── static/                    # Static files (CSS, JavaScript)
+│   └── style.css              # Custom styling for the web interface
+├── venv/                      # Virtual environment
+├── README.md                  # Project documentation
+└── .gitignore                 # Git ignore file
+License
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+Acknowledgements
+Flask for building the web application.
+BeautifulSoup for web scraping.
+MySQL for the database integration.
+Schedule for automating the scraping process.
